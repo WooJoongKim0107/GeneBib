@@ -1,14 +1,18 @@
+"""
+Measure the fraction of genes in the top x ranks still be in the top x on the next period.
+
+In other words, the main goal of this code is to calculate, for example,
+    (# of genes in the top x in both 2013-2015 and 2016-2018) / (# of genes in the top x in 2013-2015)
+        where rank of gene is defined by its total hit counts on a given period.
+"""
 import pickle
 from itertools import product, takewhile
 from more_itertools import pairwise
-from TimeSeries import rsrc_dir
+from TimeSeries import rsrc_dir, safe_update
 from TimeSeries.time_series import YGH
-from Pareto.pareto import subplot, except_tools, after1990
-from Plot.tools import set_new_xlim
+from Pareto.pareto import except_tools, after1990
 
-R_FILES = {
-    'fields': f'{rsrc_dir}/data/fields.json'
-}
+R_FILES = {'fields': f'{rsrc_dir}/data/fields.json'}
 
 W_FILES = {
     'paper': f'{rsrc_dir}/pdata/inheritance/inheritance_WO_paper_rank.pkl',
@@ -20,8 +24,9 @@ W_FILES = {
 
 class Inheritance(dict):
     """
-    {interval0 := (y0_start, y0_stop): fraction of genes which ranked within the top 'rank' in their hit counts
-                                       in both interval0 and interval1 among top 'rank' genes in interval0}
+    Inheritance('paper', 20): dict, \
+        {interval0 := (y0_start, y0_stop): fraction of genes which ranked within the top 'rank' in their hit counts
+                                              in both interval0 and interval1 among top 'rank' genes in interval0}
     """
     R_FILES = R_FILES['fields']
     W_FILES = W_FILES
@@ -119,32 +124,11 @@ def dict_sum(*dcts):
     return res
 
 
-def plot(save=False):
-    mtypes = ['paper', 'patent_gon']
-    ranks = [-1, 10, 20, 50, 100]
-    wos = [True, False]
-    for mtype, wo in product(mtypes, wos):
-        fig, axes = subplot()
-        for axis, rank in zip(axes, ranks):
-            q = Inheritance(mtype, rank, wo)
-            keys = [i for i, f in q.keys()]
-            last = next(reversed(q.keys()))[1]
-            ticks = keys + [last]
-
-            axis.bar(keys, q.values(), align='edge', width=2.1)
-            axis.set_xticks(ticks)
-            axis.set_xticklabels(ticks, fontsize=8, rotation=45, rotation_mode='anchor', ha='right', va='top')
-            set_new_xlim(axis, (ticks[0], ticks[-1]))
-            axis.set_ylim(0, 1.0)
-            axis.set_title(f'{mtype} {rank}')
-        fig.show()
-        if save:
-            fig.savefig(f'./{mtype}_{wo}.png', dpi=500)
-
-
-def main():
+def update():
     mtypes = ['paper', 'patent_gon']
     ranks = [-1, 10, 20, 50, 100]
     wos = [True, False]
     for mtype, rank, wo in product(mtypes, ranks, wos):
-        Inheritance(mtype, rank, wo, load=False).dump()
+        safe_update(Inheritance,
+                    dict(mtype=mtype, rank=rank, wo=wo, load=True),
+                    dict(mtype=mtype, rank=rank, wo=wo, load=False))

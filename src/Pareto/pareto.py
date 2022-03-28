@@ -1,21 +1,20 @@
 """
-Check if Pareto's principle holds for our work, i.e., measure the fraction of papers/patents that top x genes appear.
+Check if Pareto principle holds for our work, i.e., measure the fraction of papers/patents that top x genes appear.
+
+In other words, main goal of this code is to calculate, for example,
+    (# of papers/patents that any of top 'rank' genes got hit at 2018) / (total # of papers/patents at 2018)
+        where rank of gene is defined by its total hit counts at a given year.
 """
 import json
 import pickle
 from operator import itemgetter
-from itertools import groupby
+from itertools import groupby, product
 from more_itertools import take
-import matplotlib.pyplot as plt
 from TimeSeries import rsrc_dir, safe_update
 from TimeSeries.LoHL import LoHL
 from TimeSeries.time_series import YGH
-from Plot.tools import ExFigure
-from Plot.plotter import TimeSeriesPlt
 
-R_FILES = {
-    'fields': f'{rsrc_dir}/data/fields.json'
-}
+R_FILES = {'fields': f'{rsrc_dir}/data/fields.json'}
 
 W_FILES = {
     'paper': f'{rsrc_dir}/pdata/pareto/pareto_WO_paper_rank.pkl',
@@ -26,6 +25,10 @@ W_FILES = {
 
 
 class Pareto(dict):
+    """
+    Pareto('paper', 20): dict, {year: fraction of papers/patents that top 20 genes got hit}
+    :keyword without_tools: Whether or not to exclude genes of 'Genetic tools' field.
+    """
     R_FILES = R_FILES['fields']
     W_FILES = W_FILES
 
@@ -95,28 +98,11 @@ def top_x_rank(x: float, gh: dict):
     return set(take(x, sorted(gh, key=gh.__getitem__, reverse=True)))
 
 
-def subplot():
-    fig = plt.figure(figsize=(10.5, 2), FigureClass=ExFigure)
-    locator = [(0.565, 'inches'), (0.470, 'inches'), (1.35, 'inches'), (1.35, 'inches')]
-    for i in range(5):
-        fig.add_axes(locator, [(i / 5, 'fig'), (0, 'fig'), (0, 'fig'), (0, 'fig')])
-    return fig, fig.axes
-
-
-def plot(axis, pareto, mtype, rank):
-    w = {k: v for k, v in pareto.items() if k >= 1990}
-    axis.plot(w.keys(), w.values(), '-')
-    axis.set_title(f'{mtype} {rank}')
-    TimeSeriesPlt.draw_xticks(axis)
-
-
-def main():
-    for wo in [True, False]:
-        for mtype in ['paper', 'patent_gon']:
-            fig, axes = subplot()
-            for axis, rank in zip(axes, [5, 10, 20, 50, 100]):
-                safe_update(Pareto,
-                       dict(mtype=mtype, rank=rank, without_tools=wo, load=True),
-                       dict(mtype=mtype, rank=rank, without_tools=wo, load=False))
-                plot(axis, Pareto(mtype, rank, without_tools=wo, load=True), mtype, rank)
-            fig.show()
+def update():
+    mtypes = ['paper', 'patent_gon']
+    ranks = [5, 10, 20, 50, 100]
+    wos = [True, False]
+    for mtype, rank, wo in product(mtypes, ranks, wos):
+        safe_update(Pareto,
+                    dict(mtype=mtype, rank=rank, without_tools=wo, load=True),
+                    dict(mtype=mtype, rank=rank, without_tools=wo, load=False))
