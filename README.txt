@@ -14,9 +14,8 @@ These codes covers the second half of our work, which includes:
 
 All the codes are written in Python 3.8.10 and list of all libraries and their versions installed in my Python project can be found at the very end of this file.
 
-All the raw data shown in the text can be found on <./pdata/plots/> and <./pdata/supple_plots/>.
-
-All the processes to generate those data can be found <./src/Plot/data.py>, <./src/Plot/supple_data.py> and the python codes imported from those.
+All the raw data shown in the text can be found on <./pdata/plots/> and <./pdata/supple_plots/>. 
+Processes to generate those data can be found <./src/Plot/data.py>, <./src/Plot/supple_data.py> and the python codes imported from those.
 
 To reproduce all the results,
 	1. Move to <./src/TimeSeries/__init__.py> and modify the "base_dir" as the absolute path of GeneBib project.
