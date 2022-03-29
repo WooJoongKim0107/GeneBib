@@ -1,6 +1,7 @@
 # Project exclude paths
 /demo_rsrc/
 /plots/
+!/plots/raw_data/
 /recycle bin/
 /rsrc/
 /.idea/
