@@ -1,6 +1,7 @@
 from Plot.tools import *
 
 
+# noinspection PyPep8Naming
 def A4_row_subplots(locator):
     fig = plt.figure(figsize=(8.268, 11.693/6), FigureClass=ExFigure)
     for i in range(4):

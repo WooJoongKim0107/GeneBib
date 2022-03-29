@@ -191,6 +191,7 @@ def iitems(klv):
     return [(k, list(lv.items())) for k, lv in klv.items()]
 
 
+# noinspection PyPep8
 def fkeys(klv):
     return [(k, l) for k, lv in klv.items() for l in lv.keys()]
 
@@ -199,25 +200,30 @@ def fvalues(klv):
     return [v for lv in klv.values() for v in lv.values()]
 
 
+# noinspection PyPep8
 def fitems(klv):
     return [((k, l), v) for k, lv in klv.items() for l, v in lv.items()]
 
 
+# noinspection PyPep8
 def tfkeys(klv):
     lk = ((l, k) for k, lv in klv.items() for l in lv.keys())
     return sorted(lk)
 
 
+# noinspection PyPep8
 def tfvalues(klv):
     lk = tfkeys(klv)
     return [klv[k][l] for l, k in lk]
 
 
+# noinspection PyPep8
 def tfitems(klv):
     lk = tfkeys(klv)
     return [((l, k), klv[k][l]) for l, k in lk]
 
 
+# noinspection PyPep8
 def leys(klv):
     # return list(Counter(l for lv in klv.values() for l in lv.keys()))
     return list({l: 0 for lv in klv.values() for l in lv.keys()})
@@ -239,6 +245,7 @@ def first_value(klv):
     return next(iter(first_lv(klv).values()))
 
 
+# noinspection PyPep8
 def transpose(klv, dtype=dict):
     """{k: {l: v}} -> {l: {k: v}}"""
     lkv = dtype()
@@ -248,6 +255,7 @@ def transpose(klv, dtype=dict):
     return lkv
 
 
+# noinspection PyPep8
 def from_fitems(it, dtype=dict):
     new = dtype()
     for (k, l), v in it:

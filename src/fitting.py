@@ -40,6 +40,7 @@ def main(taubeta):
 def fitting(tau, beta, paras):
     result1 = minimize_chi_1(tau, beta, paras[:-1], method='SLSQP', bounds=BOUNDARIES[:-1], options={'maxiter': 10_000})
     si, chi1 = result1['x'], result1['fun']
+    # noinspection PyPep8
     result2 = minimize_chi_2(tau, beta, si, paras[-1:], method='SLSQP', bounds=BOUNDARIES[-1:], options={'maxiter': 10_000})
     c, chi2 = result2['x'], result2['fun']
     return chi1, chi2, (*si, *c)

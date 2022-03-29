@@ -176,6 +176,7 @@ class Shares(KLV):
         scores = Scores.raw_scores(mtype)
         return cls.calc_shares(scores)
 
+    # noinspection PyPep8
     @staticmethod
     def calc_shares(scores):
         shares = KLV()
@@ -210,6 +211,7 @@ class VIPS(KLV):
             vips[k] = dict(enumerate(ordered, start=1))
         return vips
 
+    # noinspection PyPep8
     @staticmethod
     def get_by_name(by_idx):
         nicknames = Nicknames()

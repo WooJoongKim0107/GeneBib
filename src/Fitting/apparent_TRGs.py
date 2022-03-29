@@ -23,7 +23,7 @@ def comb(n, r):
 
 def omega(n, i, x):
     m = min(i-x, (n-x)//2)
-    return comb(i, x)*mp.fsum(comb(i-x, l)*comb(n-x-l-1, l-1) for l in range(1, m+1)) + int(x == n)
+    return comb(i, x)*mp.fsum(comb(i-x, j)*comb(n-x-j-1, j-1) for j in range(1, m+1)) + int(x == n)
 
 
 def expected(N, n):
