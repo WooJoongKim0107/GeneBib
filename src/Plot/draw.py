@@ -5,10 +5,10 @@ from Plot.data import *
 
 
 def draw_fig1i_lower(axis_lower):
-    inheritances = get_fig1i_lower()
-    for mtype, dct in inheritances.items():
-        for rank, inheritance in dct.items():
-            Fig1i.draw_lower(axis_lower, inheritance)
+    klv_persistency = get_fig1i_lower()
+    for mtype, dct_persistency in klv_persistency.items():
+        for rank, persistency in dct_persistency.items():
+            Fig1i.draw_lower(axis_lower, persistency)
     Fig1i.polish_lower(axis_lower)
 
 

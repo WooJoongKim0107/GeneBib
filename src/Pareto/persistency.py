@@ -15,16 +15,16 @@ from Pareto.pareto import except_tools, after1990
 R_FILES = {'fields': f'{rsrc_dir}/data/fields.json'}
 
 W_FILES = {
-    'paper': f'{rsrc_dir}/pdata/inheritance/inheritance_WO_paper_rank.pkl',
-    'patent': f'{rsrc_dir}/pdata/inheritance/inheritance_WO_patent_rank.pkl',
-    'patent_gon': f'{rsrc_dir}/pdata/inheritance/inheritance_WO_patent_gon_rank.pkl',
-    'any': f'{rsrc_dir}/pdata/inheritance/inheritance_WO_any_rank.pkl',
+    'paper': f'{rsrc_dir}/pdata/persistency/persistency_WO_paper_rank.pkl',
+    'patent': f'{rsrc_dir}/pdata/persistency/persistency_WO_patent_rank.pkl',
+    'patent_gon': f'{rsrc_dir}/pdata/persistency/persistency_WO_patent_gon_rank.pkl',
+    'any': f'{rsrc_dir}/pdata/persistency/persistency_WO_any_rank.pkl',
 }
 
 
-class Inheritance(dict):
+class Persistency(dict):
     """
-    Inheritance('paper', 20): dict, \
+    persistency('paper', 20): dict, \
         {interval0 := (y0_start, y0_stop): fraction of genes which ranked within the top 'rank' in their hit counts
                                               in both interval0 and interval1 among top 'rank' genes in interval0}
     """
@@ -129,6 +129,6 @@ def update():
     ranks = [-1, 10, 20, 50, 100]
     wos = [True, False]
     for mtype, rank, wo in product(mtypes, ranks, wos):
-        safe_update(Inheritance,
+        safe_update(Persistency,
                     dict(mtype=mtype, rank=rank, wo=wo, load=True),
                     dict(mtype=mtype, rank=rank, wo=wo, load=False))

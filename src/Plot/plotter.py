@@ -278,10 +278,10 @@ class Fig1i:
         axis1.plot(t1.keys(), t1.values(), '--', color=cls.TC)
 
     @classmethod
-    def draw_lower(cls, axis_lower, inheritance):
-        x = [f - 1 for i, f in inheritance]
-        y = [v for v in inheritance.values()]
-        if inheritance.mtype in ['paper', 'any']:
+    def draw_lower(cls, axis_lower, persistency):
+        x = [f - 1 for i, f in persistency]
+        y = [v for v in persistency.values()]
+        if persistency.mtype in ['paper', 'any']:
             axis_lower.plot(x, y, **{**cls.kws_marker, 'color': cls.PC})
             axis_lower.plot(x, y, color=cls.PC, lw=1.1)
         else:

@@ -4,7 +4,7 @@ from TimeSeries.LoHL import LoHL
 from TimeSeries.debut import Debuts
 from Share.portion import Portions
 from Share.share import Shares
-from Pareto.inheritance import Inheritance
+from Pareto.persistency import Persistency
 from fitting import taubeta_rep
 from Fitting.data_preparation import get_dbdt, get_bt, t2y
 from Fitting.fit_sum import Chi1s, DBDTs, BTs
@@ -21,7 +21,7 @@ def get_fig1i_upper():
 
 def get_fig1i_lower():
     """Identical to <{base_dir}/plots/raw_data/fig1i_lower_paper.csv> and <..._patent.csv>"""
-    return {mtype: {rank: Inheritance(mtype, rank) for rank in [20, 50, -1]} for mtype in ['paper', 'patent_gon']}
+    return {mtype: {rank: Persistency(mtype, rank) for rank in [20, 50, -1]} for mtype in ['paper', 'patent_gon']}
 
 
 def get_fig2a():
