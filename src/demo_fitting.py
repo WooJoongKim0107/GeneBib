@@ -11,19 +11,21 @@ import pickle
 from multiprocessing import Pool
 from collections import deque
 from TimeSeries import rsrc_dir
-from fitting import fitting, write, taubeta_grid
+from fitting import fitting, write, taubeta_grid, taubeta_rep
 
 R_FILES = {'ini_paras': f'{rsrc_dir}/data/demo_initial_paras.pkl'}
+W_FILES = {'': f'{rsrc_dir}/pdata/fit_raw/demo_TAUBETA.pkl'}
 
 
 def main(taubeta):
+    directory = W_FILES[''].replace('TAUBETA', taubeta_rep(*taubeta))
     chi_1s, chi_2s, paras = (deque() for _ in range(3))
     for ini_paras in demo_inital_paras():
         chi1, chi2, sic = fitting(*taubeta, ini_paras)
         chi_1s.append(chi1)
         chi_2s.append(chi2)
         paras.append(sic)
-    write(*taubeta, [chi_1s, chi_2s, paras])
+    write([chi_1s, chi_2s, paras], directory)
 
 
 def demo_inital_paras():

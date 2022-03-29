@@ -25,15 +25,18 @@ from collections import deque
 from TimeSeries import rsrc_dir
 from Fitting.minimization import minimize_chi_1, minimize_chi_2, random_initial_paras, BOUNDARIES
 
+W_FILES = {'': f'{rsrc_dir}/pdata/fit_raw/TAUBETA.pkl'}
+
 
 def main(taubeta):
+    directory = W_FILES[''].replace('TAUBETA', taubeta_rep(*taubeta))
     chi_1s, chi_2s, paras = (deque() for _ in range(3))
     for ini_paras in random_initial_paras(1_000_000, BOUNDARIES):
         chi1, chi2, sic = fitting(*taubeta, ini_paras)
         chi_1s.append(chi1)
         chi_2s.append(chi2)
         paras.append(sic)
-    write(*taubeta, [chi_1s, chi_2s, paras])
+    write([chi_1s, chi_2s, paras], directory)
 
 
 # noinspection PyPep8
@@ -46,8 +49,8 @@ def fitting(tau, beta, paras):
     return chi1, chi2, (*si, *c)
 
 
-def write(tau, beta, x):
-    with open(f'{rsrc_dir}/pdata/fit_raw/{taubeta_rep(tau, beta)}.pkl', 'rb') as file:
+def write(x, directory):
+    with open(directory, 'rb') as file:
         pickle.dump(x, file)
 
 
