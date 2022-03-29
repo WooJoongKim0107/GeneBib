@@ -3,7 +3,7 @@ Summarize the fitting results by measuring
  1) slope: the fraction of sequences which are taxonomically-restricted among all genes
  2) TRG: the fraction of taxonomically-restricted genes (TRG) among all genes found until 2018
  3) TDG: the fraction of taxonomically-dispersed genes (TDG) found until 1997 and 2000 among TDGs found until 2018
- 4) bt & dbbt: the model estimation of the time-series (and its time-difference) of debuted genes each year
+ 4) bt & dbdt: the model estimation of the time-series (and its time-difference) of debuted genes each year
  5) chi1: the value of cost function used for fitting
 """
 import pickle

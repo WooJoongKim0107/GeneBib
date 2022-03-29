@@ -31,7 +31,7 @@ def get_sfig4():
 
 
 def get_sfig5():
-    """Identical to <{base_dir}/plots/raw_data/supplementary/sfig5_paper.csv> & <{base_dir}/plots/raw_data/supplementary/sfig5_patent.csv>"""
+    """Identical to <{base_dir}/plots/raw_data/supplementary/sfig5_paper.csv> & <.../sfig5_patent.csv>"""
     paper = Portions('paper').transposed
     patent = Portions('patent_gon').transposed
     fields = {'Med. sci.': 'Med. sci.',
@@ -50,7 +50,7 @@ def get_sfig5():
 
 
 def get_sfig6():
-    """Identical to <{base_dir}/plots/raw_data/supplementary/sfig6.pkl> or <{base_dir}/plots/raw_data/supplementary/sfig6.csv>"""
+    """Identical to <{base_dir}/plots/raw_data/supplementary/sfig6.pkl> or <.../sfig6.csv>"""
     return _get_sfig6()
 
 

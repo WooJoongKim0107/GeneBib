@@ -106,10 +106,11 @@ class Measurements:
 
 
 class WaitingTimes(KLV):
+    # noinspection PyPep8
     """
-    wts = WaitingTimes()
-    wts[(1995, 2000)] = {t: prob of a random gene that has sequenced during 1995-1999 debuts t year after its sequencing}
-    """
+        wts = WaitingTimes()
+        wts[(1995, 2000)] = {t: prob of a random gene that has sequenced during 1995-1999 debuts t year after its sequencing}
+        """
     W_FILES = W_FILES['pdf']
     INTERVALS = [(1980, 1995), (1995, 2000), (2000, 2005), (2005, 2016), (1980, 2016)]
     # 1980 (2016) is the minimum (maximum) value observed for the year of sequencing

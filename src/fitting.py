@@ -36,6 +36,7 @@ def main(taubeta):
     write(*taubeta, [chi_1s, chi_2s, paras])
 
 
+# noinspection PyPep8
 def fitting(tau, beta, paras):
     result1 = minimize_chi_1(tau, beta, paras[:-1], method='SLSQP', bounds=BOUNDARIES[:-1], options={'maxiter': 10_000})
     si, chi1 = result1['x'], result1['fun']

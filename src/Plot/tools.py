@@ -55,6 +55,7 @@ def twin_ax(axis: plt.Axes):
     ax2 = axis.figure.add_axes(locator, sharex=axis)
     ax2.set_adjustable('datalim')
     ax2.set_adjustable('datalim')
+    # noinspection PyProtectedMember
     axis._twinned_axes.join(axis, ax2)
     ax2.yaxis.tick_right()
     ax2.yaxis.set_label_position('right')
