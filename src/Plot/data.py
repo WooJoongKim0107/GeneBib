@@ -1,10 +1,27 @@
+from collections import Counter
 import pandas as pd
+from TimeSeries.LoHL import LoHL
 from TimeSeries.debut import Debuts
 from Share.portion import Portions
 from Share.share import Shares
+from Pareto.inheritance import Inheritance
 from fitting import taubeta_rep
 from Fitting.data_preparation import get_dbdt, get_bt, t2y
 from Fitting.fit_sum import Chi1s, DBDTs, BTs
+
+
+def get_fig1i_upper():
+    """Identical to <{base_dir}/plots/raw_data/fig1i_upper.csv>"""
+    p = Counter(y for i, y, *gs in LoHL('paper') if y >= 1990)
+    t = Counter(y for i, y, *gs in LoHL.init_with_endyear('patent_gon', 2018) if y >= 1990)
+    t0 = {k: v for k, v in t.items() if k <= 2015}
+    t1 = {k: v for k, v in t.items() if k >= 2015}  # year=2015 included intentionally
+    return p, (t0, t1)
+
+
+def get_fig1i_lower():
+    """Identical to <{base_dir}/plots/raw_data/fig1i_lower_paper.csv> and <..._patent.csv>"""
+    return {mtype: {rank: Inheritance(mtype, rank) for rank in [20, 50, -1]} for mtype in ['paper', 'patent_gon']}
 
 
 def get_fig2a():

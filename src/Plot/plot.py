@@ -4,10 +4,19 @@ from Plot.draw import *
 from TimeSeries import base_dir
 
 W_FILES = {
+    'fig1i': f'{base_dir}/plots/fig1i.svg',
     'row1': f'{base_dir}/plots/row1.svg',
     'row2': f'{base_dir}/plots/row2.svg',
     'row3': f'{base_dir}/plots/row3.svg',
 }
+
+
+# This function produces Fig. 1i and all the other functions will produce Fig. 2
+def plot_fig1i():
+    fig, (axes_upper, axis_lower) = Fig1i.subplots()
+    draw_fig1i_upper(axes_upper)
+    draw_fig1i_lower(axis_lower)
+    return fig, (axes_upper, axis_lower)
 
 
 def plot_first_row():
@@ -41,11 +50,14 @@ def plot_middle():
 
 
 def main():
-    fig0, axes0 = plot_first_row()
-    fig0.savefig(W_FILES['row1'], format='svg')
+    fig0, _ = plot_fig1i()
+    fig0.savefig(W_FILES['fig1i'], format='svg')
 
-    fig1, axes1 = plot_second_row()
-    fig1.savefig(W_FILES['row2'], format='svg')
+    fig1, axes1 = plot_first_row()
+    fig1.savefig(W_FILES['row1'], format='svg')
 
-    fig, (axis, cax), axes = plot_middle()
-    fig.savefig(W_FILES['row3'], format='svg')
+    fig2, axes2 = plot_second_row()
+    fig2.savefig(W_FILES['row2'], format='svg')
+
+    fig3, (axis, cax), axes3 = plot_middle()
+    fig3.savefig(W_FILES['row3'], format='svg')

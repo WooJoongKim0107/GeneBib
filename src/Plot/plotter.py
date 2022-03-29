@@ -250,3 +250,71 @@ class PmfPlt:
 
         ax.set_xticks(centers[outer], minor=True)
         ax.set_xticks(centers[outer][1::2])
+
+
+class Fig1i:
+    PC = '#1f77b4ff'
+    TC = '#de4e4fff'
+    kws_marker = dict(zorder=1, marker='o', mfc='white', ms=2.9, mew=1.1, ls='')
+
+    @staticmethod
+    def subplots():
+        fig = plt.figure(figsize=(2.5, 2.8), FigureClass=ExFigure)
+        axis_lower = fig.add_axes([(0.5, 'figure'), (0.5, 'inches'), (1.326, 'inches'), (0.997, 'inches')], ha=0)
+        axis0 = fig.add_axes([(0.0, axis_lower), (1, axis_lower), (1.326, 'inches'), (0.997, 'inches')],
+                             [(0, 0), (0.073, 'inches'), (0, 0), (0, 0)])
+        axis1 = twin_ax(axis0)
+        axis0.xaxis.set_tick_params(bottom=False, labelbottom=False)
+        axis0.yaxis.set_tick_params(left=True, labelleft=True)
+        axes_upper = (axis0, axis1)
+        return fig, (axes_upper, axis_lower)
+
+    @classmethod
+    def draw_upper(cls, axes_upper, p, t0, t1):
+        axis0, axis1 = axes_upper
+        axis0.plot(p.keys(), p.values(), '-', color=cls.PC)
+        axis1.plot(t0.keys(), t0.values(), '-', color=cls.TC)
+        axis1.plot(t1.keys(), t1.values(), '--', color=cls.TC)
+
+    @classmethod
+    def draw_lower(cls, axis_lower, inheritance):
+        x = [f - 1 for i, f in inheritance]
+        y = [v for v in inheritance.values()]
+        if inheritance.mtype in ['paper', 'any']:
+            axis_lower.plot(x, y, **{**cls.kws_marker, 'color': cls.PC})
+            axis_lower.plot(x, y, color=cls.PC, lw=1.1)
+        else:
+            axis_lower.plot(x[:-1], y[:-1], **{**cls.kws_marker, 'color': cls.TC})
+            axis_lower.plot(x[:-1], y[:-1], color=cls.TC, lw=1.1)
+            axis_lower.plot(x[-2:], y[-2:], **{**cls.kws_marker, 'color': 'grey'})
+            axis_lower.plot(x[-2:], y[-2:], color='grey', lw=1.1)
+
+    @staticmethod
+    def polish_lower(axis_lower: plt.Axes):
+        axis_lower.set_ylim(0.45, 1.07)
+        axis_lower.set_yticks([0.45, 0.6, 0.8, 1.0])
+        axis_lower.set_yticks([0.5, 0.7, 0.9], minor=True)
+        axis_lower.set_yticklabels(['0', '60', '80', '100'])
+        TimeSeriesPlt.draw_xlabel(axis_lower, 'Year')
+        TimeSeriesPlt.draw_xticks(axis_lower)
+        axis_lower.set_ylabel('Persistency (%)')
+
+    @classmethod
+    def polish_upper(cls, axes_upper):
+        axis0, axis1 = axes_upper
+        axis0.set_ylim(0, 3.0e5)
+        axis0.set_yticks([0, 1.0e5, 2.0e5, 3.0e5])
+        axis0.set_yticks([0, 0.5e5, 1.5e5, 2.5e5], minor=True)
+        axis0.set_yticklabels(['0.0', '1.0', '2.0', '3.0'])
+        axis0.tick_params(axis='y', colors=cls.PC, which='both')
+
+        axis1.set_ylim(0, 9.0e3)
+        axis1.set_yticks([0, 3.0e3, 6.0e3, 9.0e3])
+        axis1.set_yticks([0, 1.5e3, 4.5e3, 7.5e3], minor=True)
+        axis1.set_yticklabels(['0.0', '3.0', '6.0', '9.0'])
+        axis1.tick_params(axis='y', colors=cls.TC, which='both')
+
+        # It must be (\u2715 10^5), not (x105),
+        # but currently there is error with math expressions & unicode
+        axis0.set_ylabel(f'Papers / year (x105)')
+        axis1.set_ylabel(f'Patents / year (x103)', rotation=270, va='bottom')

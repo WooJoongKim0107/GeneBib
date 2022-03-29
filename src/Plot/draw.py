@@ -1,7 +1,21 @@
 import numpy as np
 from Plot.tools import set_new_ylim, set_sci_yticks
-from Plot.plotter import TimeSeriesPlt, FitResPlt
+from Plot.plotter import TimeSeriesPlt, FitResPlt, Fig1i
 from Plot.data import *
+
+
+def draw_fig1i_lower(axis_lower):
+    inheritances = get_fig1i_lower()
+    for mtype, dct in inheritances.items():
+        for rank, inheritance in dct.items():
+            Fig1i.draw_lower(axis_lower, inheritance)
+    Fig1i.polish_lower(axis_lower)
+
+
+def draw_fig1i_upper(axes_upper):
+    p, (t0, t1) = get_fig1i_upper()
+    Fig1i.draw_upper(axes_upper, p, t0, t1)
+    Fig1i.polish_upper(axes_upper)
 
 
 def draw_fig2a(axis):
