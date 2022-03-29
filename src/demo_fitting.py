@@ -8,9 +8,10 @@ This code uses <.../demo_initial_paras.pkl> rather than 'random_initial_paras' t
 <.../demo_initial_paras.pkl> corresponds to a valid result of 'random_initial_paras(100, BOUNDARIES)'.
 """
 import pickle
+from multiprocessing import Pool
 from collections import deque
 from TimeSeries import rsrc_dir
-from fitting import fitting, write
+from fitting import fitting, write, taubeta_grid
 
 R_FILES = {'ini_paras': f'{rsrc_dir}/data/demo_initial_paras.pkl'}
 
@@ -28,3 +29,9 @@ def main(taubeta):
 def demo_inital_paras():
     with open(R_FILES['ini_paras'], 'rb') as file:
         return pickle.load(file)
+
+
+if __name__ == '__main__':
+    grids = taubeta_grid()
+    with Pool() as p:
+        p.map(main, grids)
