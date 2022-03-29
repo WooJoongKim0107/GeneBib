@@ -7,10 +7,13 @@ from functools import lru_cache
 from collections import Collection
 import numpy as np
 import pandas as pd
-from TimeSeries import rsrc_dir
+from TimeSeries import rsrc_dir, demo
 from TimeSeries.debut import Debuts
 
-R_FILES = {'N': f'{rsrc_dir}/data/yearly_new_entries.csv'}
+R_FILES = {
+    'N': f'{rsrc_dir}/data/yearly_new_entries.csv',
+    'dbdt': f'{rsrc_dir}/data/yearly_new_genes.csv',
+}
 
 
 def keys_sorted(dct: dict):
@@ -26,17 +29,22 @@ def values_accumulated(dct: dict):
     return dict(zip(dct, accumulate(dct.values())))
 
 
-@lru_cache(maxsize=128)
-def get_dbdt():
-    return fill_keys({k: len(v) for k, v in Debuts('any').transposed.items()})
+N = pd.read_csv(R_FILES['N'], index_col=0, squeeze=True).to_dict()
+
+if demo:
+    @lru_cache(maxsize=128)
+    def get_dbdt():
+        return pd.read_csv(R_FILES['dbdt'], index_col=0, squeeze=True).to_dict()
+
+else:
+    @lru_cache(maxsize=128)
+    def get_dbdt():
+        return fill_keys({k: len(v) for k, v in Debuts('any').transposed.items()})
 
 
 @lru_cache(maxsize=128)
 def get_bt():
     return values_accumulated(get_dbdt())
-
-
-N = pd.read_csv(R_FILES['N'], index_col=0, squeeze=True).to_dict()
 
 
 def calc_dydt(t, tau):

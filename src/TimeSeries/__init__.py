@@ -13,7 +13,9 @@ See <pattern.py> to classify each gene depending on their time-series of hits
 """
 from .base_functions import safe_update, swap_item
 
-__all__ = ['base_dir', 'rsrc_dir', 'LoHL', 'time_series', 'debut', 'pattern', 'total', 'safe_update', 'swap_item']
+__all__ = ['demo', 'base_dir', 'rsrc_dir',
+           'LoHL', 'time_series', 'debut', 'pattern', 'total',
+           'safe_update', 'swap_item']
 
 # base_dir should be modified according to your computer system.
 # base_dir will be referenced whenever our python code reads or writes files.
