@@ -1,3 +1,4 @@
+from itertools import product
 from Fitting.waiting_time import tau_fitted
 from Plot.plotter import *
 from Plot.supple_data import *
@@ -10,32 +11,45 @@ def plot_1row():
 def plot_2rows():
     fig = plt.figure(figsize=(8.268, 11.693 / 3), FigureClass=ExFigure)
     locator = TimeSeriesPlt.one_sided_pos
-    for i in range(4):
-        fig.add_axes(locator, [(i / 4, 'fig'), (1 / 2, 'fig'), (0, 'fig'), (0, 'fig')])
-    for i in range(4):
-        fig.add_axes(locator, [(i / 4, 'fig'), (0 / 2, 'fig'), (0, 'fig'), (0, 'fig')])
+    for j in reversed(range(2)):
+        for i in range(4):
+            fig.add_axes(locator, [(i / 4, 'fig'), (j / 2, 'fig'), (0, 'fig'), (0, 'fig')])
     return fig, fig.axes
 
 
 def plot_2rows5cols():
     fig = plt.figure(figsize=(9.7, 11.693 / 3), FigureClass=ExFigure)
     locator = TimeSeriesPlt.one_sided_pos
-    for i in range(5):
-        fig.add_axes(locator, [(i / 5, 'fig'), (1 / 2, 'fig'), (0, 'fig'), (0, 'fig')])
-    for i in range(5):
-        fig.add_axes(locator, [(i / 5, 'fig'), (0 / 2, 'fig'), (0, 'fig'), (0, 'fig')])
+    for j in reversed(range(2)):
+        for i in range(5):
+            fig.add_axes(locator, [(i / 5, 'fig'), (j / 2, 'fig'), (0, 'fig'), (0, 'fig')])
+    return fig, fig.axes
+
+
+def plot_4rows5cols():
+    fig = plt.figure(figsize=(9.7, 8), FigureClass=ExFigure)
+    locator = TimeSeriesPlt.one_sided_pos
+    for j in reversed(range(2)):
+        for i in range(5):
+            fig.add_axes(locator, [(i / 5, 'fig'), (j / 4, 'fig'), (0, 'fig'), (0, 'fig')])
     return fig, fig.axes
 
 
 def plot_4rows3cols():
     fig = plt.figure(figsize=(8.268*3/4, 11.693*4/6), FigureClass=ExFigure)
     locator = TimeSeriesPlt.one_sided_pos
-    for i in reversed(range(4)):
-        fig.add_axes(locator, [(0 / 3, 'fig'), (i / 4, 'fig'), (0, 'fig'), (0, 'fig')])
-    for i in reversed(range(4)):
-        fig.add_axes(locator, [(1 / 3, 'fig'), (i / 4, 'fig'), (0, 'fig'), (0, 'fig')])
-    for i in reversed(range(4)):
-        fig.add_axes(locator, [(2 / 3, 'fig'), (i / 4, 'fig'), (0, 'fig'), (0, 'fig')])
+    for i in range(3):
+        for j in reversed(range(4)):
+            fig.add_axes(locator, [(i / 3, 'fig'), (j / 4, 'fig'), (0, 'fig'), (0, 'fig')])
+    return fig, fig.axes
+
+
+def plot_3rows4cols():
+    fig = plt.figure(figsize=(8.268, 11.693/2), FigureClass=ExFigure)
+    locator = TimeSeriesPlt.one_sided_pos
+    for i in range(4):
+        for j in reversed(range(3)):
+            fig.add_axes(locator, [(i / 4, 'fig'), (j / 3, 'fig'), (0, 'fig'), (0, 'fig')])
     return fig, fig.axes
 
 
@@ -259,3 +273,37 @@ def draw_sfig8_taus(axis: plt.Axes):
 
     axis.axvline(6.94)
     axis.axvline(10)
+
+
+def plot_sfig9():
+    mtypes = ['paper', 'patent_gon']
+    wos = [False, True]
+    ranks = [20, 50, 100]
+
+    fig, axes = plot_1row()
+    for axis, (mtype, wo) in zip(axes, product(mtypes, wos)):
+        for rank in ranks:
+            pareto = Pareto(mtype, rank, without_tools=wo)
+            axis.plot(pareto.keys(), pareto.values(), lw=1.1)
+        set_new_ylim(axis, (0, 0.6))
+        axis.set_yticks([0, 0.2, 0.4, 0.6])
+        axis.set_yticks([0.1, 0.3, 0.5], minor=True)
+        axis.set_yticklabels(['0', '20', '40', '60'])
+        TimeSeriesPlt.draw_xlabel(axis, 'Year')
+        TimeSeriesPlt.draw_xticks(axis)
+        axis.set_ylabel('Pareto (%)')
+    return fig, axes
+
+
+def plot_sfig10():
+    mtypes = ['paper', 'patent_gon']
+    wos = [False, True]
+    ranks = [20, 50, -1]
+
+    fig, axes = plot_1row()
+    for axis, (mtype, wo) in zip(axes, product(mtypes, wos)):
+        for rank in ranks:
+            persistency = Persistency(mtype, rank, without_tools=wo)
+            Fig1i.draw_lower(axis, persistency)
+            Fig1i.polish_lower(axis)
+    return fig, axes

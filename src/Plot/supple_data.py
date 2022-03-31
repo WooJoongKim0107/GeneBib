@@ -7,6 +7,8 @@ from Fitting.fit_sum import TRGs, Slopes
 from Fitting.waiting_time import CCWaitingTimes
 from Fitting.apparent_TRGs import get_sfig6 as _get_sfig6
 from Share.portion import Portions
+from Pareto.pareto import Pareto
+from Pareto.persistency import Persistency
 
 
 R_FILES = {'wts': f'{rsrc_dir}/data/waiting_times.csv'}
@@ -70,6 +72,22 @@ def get_sfig8_slopes():
 
 def get_sfig8_taus():
     return [tau for tau, beta in Slopes().fkeys()]
+
+
+def get_sfig9():
+    pareto_w = {mtype: {rank: Pareto(mtype, rank, without_tools=False) for rank in [20, 50, 100]}
+                for mtype in ['paper', 'patent_gon']}
+    pareto_wo = {mtype: {rank: Pareto(mtype, rank, without_tools=True) for rank in [20, 50, 100]}
+                 for mtype in ['paper', 'patent_gon']}
+    return pareto_w, pareto_wo
+
+
+def get_sfig10():
+    persistency_w = {mtype: {rank: Persistency(mtype, rank, without_tools=False) for rank in [20, 50, -1]}
+                     for mtype in ['paper', 'patent_gon']}
+    persistency_wo = {mtype: {rank: Persistency(mtype, rank, without_tools=True) for rank in [20, 50, -1]}
+                      for mtype in ['paper', 'patent_gon']}
+    return persistency_w, persistency_wo
 
 
 def from1990to2018(dct):
