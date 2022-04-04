@@ -276,34 +276,59 @@ def draw_sfig8_taus(axis: plt.Axes):
 
 
 def plot_sfig9():
-    mtypes = ['paper', 'patent_gon']
+    mtype2colors = {'paper': ['#011993', '#0096ff', '#00d0d7'],
+                    'patent_gon': ['#941751', '#ea2613', '#ff8ad8']}
     wos = [False, True]
-    ranks = [20, 50, 100]
+    ranks = [20, 50]
 
     fig, axes = plot_1row()
-    for axis, (mtype, wo) in zip(axes, product(mtypes, wos)):
-        for rank in ranks:
-            pareto = Pareto(mtype, rank, without_tools=wo)
-            axis.plot(pareto.keys(), pareto.values(), lw=1.1)
-        set_new_ylim(axis, (0, 0.6))
-        axis.set_yticks([0, 0.2, 0.4, 0.6])
-        axis.set_yticks([0.1, 0.3, 0.5], minor=True)
-        axis.set_yticklabels(['0', '20', '40', '60'])
-        TimeSeriesPlt.draw_xlabel(axis, 'Year')
+    for axis, wo in zip(axes, wos):
+        for mtype, colors in mtype2colors.items():
+            for rank, color in zip(ranks, colors):
+                pareto = Pareto(mtype, rank, without_tools=wo)
+                if mtype in ['paper', 'any']:
+                    axis.plot(pareto.keys(), pareto.values(), color=color, lw=1.1)
+                else:
+                    dct0 = {k: v for k, v in pareto.items() if k <= 2015}
+                    dct1 = {k: v for k, v in pareto.items() if k >= 2015}
+                    axis.plot(dct0.keys(), dct0.values(), color=color, lw=1.1)
+                    axis.plot(dct1.keys(), dct1.values(), color=color, lw=1.1, ls='--')
+        set_new_ylim(axis, (0, 0.5))
+        axis.set_yticks([0, 0.1, 0.2, 0.3, 0.4, 0.5])
+        # axis.set_yticks([0.1, 0.3, 0.5], minor=True)
+        axis.set_yticklabels(['0', '10', '20', '30', '40', '50'])
+        TimeSeriesPlt.draw_xlabel(axis, 'Year', fontsize=8)
         TimeSeriesPlt.draw_xticks(axis)
-        axis.set_ylabel('Pareto (%)')
+        axis.set_ylabel('Proportion (%)')
     return fig, axes
 
 
 def plot_sfig10():
-    mtypes = ['paper', 'patent_gon']
+    mtype2colors = {'paper': ['#011993', '#0096ff', '#00d0d7'],
+                    'patent_gon': ['#941751', '#ea2613', '#ff8ad8']}
     wos = [False, True]
-    ranks = [20, 50, -1]
+    rankss = [[20, 50, -1], [10, 100, -1]]
 
     fig, axes = plot_1row()
-    for axis, (mtype, wo) in zip(axes, product(mtypes, wos)):
-        for rank in ranks:
+    for axis, (ranks, wo) in zip(axes, product(rankss, wos)):
+        for mtype, colors in mtype2colors.items():
+            for rank, color in zip(ranks, colors):
+                persistency = Persistency(mtype, rank, without_tools=wo)
+                Fig1i.draw_lower(axis, persistency, color)
+                Fig1i.polish_lower(axis)
+    return fig, axes
+
+
+def plot_sfig11():
+    mtype2colors = {'paper': ['#011993', '#0096ff', '#00d0d7'],
+                    'patent_gon': ['#941751', '#ea2613', '#ff8ad8']}
+    wos = [False, True]
+    ranks = [10, 100, -1]
+
+    fig, axes = plot_1row()
+    for axis, ((mtype, colors), wo) in zip(axes, product(mtype2colors.items(), wos)):
+        for rank, color in zip(ranks, colors):
             persistency = Persistency(mtype, rank, without_tools=wo)
-            Fig1i.draw_lower(axis, persistency)
+            Fig1i.draw_lower(axis, persistency, color)
             Fig1i.polish_lower(axis)
     return fig, axes

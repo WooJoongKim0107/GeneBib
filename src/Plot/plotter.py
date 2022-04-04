@@ -256,7 +256,7 @@ class PmfPlt:
 class Fig1i:
     PC = '#1f77b4ff'
     TC = '#de4e4fff'
-    kws_marker = dict(zorder=1, marker='o', mfc='white', ms=2.9, mew=1.1, ls='')
+    kws_marker = dict(marker='o', ms=2.5, mew=1.1, ls='')
 
     @staticmethod
     def subplots():
@@ -278,15 +278,17 @@ class Fig1i:
         axis1.plot(t1.keys(), t1.values(), '--', color=cls.TC)
 
     @classmethod
-    def draw_lower(cls, axis_lower, persistency):
+    def draw_lower(cls, axis_lower, persistency, color=''):
         x = [f - 1 for i, f in persistency]
         y = [v for v in persistency.values()]
         if persistency.mtype in ['paper', 'any']:
-            axis_lower.plot(x, y, **{**cls.kws_marker, 'color': cls.PC})
-            axis_lower.plot(x, y, color=cls.PC, lw=1.1)
+            color = color if color else cls.PC
+            axis_lower.plot(x, y, color=color, lw=1.1)
+            axis_lower.plot(x, y, **{**cls.kws_marker, 'color': color})
         else:
-            axis_lower.plot(x[:-1], y[:-1], **{**cls.kws_marker, 'color': cls.TC})
-            axis_lower.plot(x[:-1], y[:-1], color=cls.TC, lw=1.1)
+            color = color if color else cls.TC
+            axis_lower.plot(x[:-1], y[:-1], **{**cls.kws_marker, 'color': color})
+            axis_lower.plot(x[:-1], y[:-1], color=color, lw=1.1)
             axis_lower.plot(x[-2:], y[-2:], **{**cls.kws_marker, 'color': 'grey'})
             axis_lower.plot(x[-2:], y[-2:], color='grey', lw=1.1)
 
