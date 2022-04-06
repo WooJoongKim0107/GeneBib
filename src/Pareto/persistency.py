@@ -130,5 +130,5 @@ def update():
     wos = [True, False]
     for mtype, rank, wo in product(mtypes, ranks, wos):
         safe_update(Persistency,
-                    dict(mtype=mtype, rank=rank, wo=wo, load=True),
-                    dict(mtype=mtype, rank=rank, wo=wo, load=False))
+                    dict(mtype=mtype, rank=rank, without_tools=wo, load=True),
+                    dict(mtype=mtype, rank=rank, without_tools=wo, load=False))
