@@ -12,6 +12,7 @@ See <total.py> to generate the annual number of paper/patents with hit
 See <pattern.py> to classify each gene depending on their time-series of hits
 """
 from .base_functions import safe_update, swap_item
+from pathlib import Path
 
 __all__ = ['demo', 'base_dir', 'rsrc_dir',
            'LoHL', 'time_series', 'debut', 'pattern', 'total',
@@ -23,5 +24,5 @@ __all__ = ['demo', 'base_dir', 'rsrc_dir',
 # I'll leave my 'base_dir' as an example.
 # 'rsrc_dir' will be modified automatically if 'base_dir' and 'demo' are corrected.
 demo = False  # Since we only provides demo-inputs, set demo as True.
-base_dir = 'C:/Users/lrlr9/PycharmProjects/GeneBib4'  # Location where <plots> and <src> directories exist
+base_dir = Path(__file__).parents[2].as_posix()  # Location where <plots> and <src> directories exist
 rsrc_dir = f'{base_dir}/demo_rsrc' if demo else f'{base_dir}/rsrc'  # Location where <data> and <pdata> directories are
