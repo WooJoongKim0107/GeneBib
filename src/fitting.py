@@ -50,7 +50,7 @@ def fitting(tau, beta, paras):
 
 
 def write(x, directory):
-    with open(directory, 'rb') as file:
+    with open(directory, 'wb') as file:
         pickle.dump(x, file)
 
 
