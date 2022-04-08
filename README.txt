@@ -1,4 +1,14 @@
-These codes covers the second half of our work, which includes:
+The GeneBib project is composed of Part_1 and Part_2.
+
+The Part_1 mainly covers
+	1. generation of "gene", which is a cluster of UniProtKB/Swiss-Prot entries
+	2. string-matching procedures to find genes mentioned in title/abstract of paper/patent
+	
+The Part_2 mainly covers 
+	1. generationg of time-series of hits (time-series of how many times each "gene" has been appeared in papers/patents published that year)
+	2. fitting annual number of new genes studied
+	
+The Part_2 includes:
 	1. Generation of time-series of hits 
 		<./src/TimeSeries/time_series.py>
 	2. Finding the debut years 
@@ -12,17 +22,16 @@ These codes covers the second half of our work, which includes:
 	6. Finding the fitting parameters of the model to describe the debut time-series
 		<./src/fitting.py> and <./src/Fitting/...>
 
-All the codes are written in Python 3.8.10 and list of all libraries and their versions installed in my Python project can be found at the very end of this file.
 
 All the raw data shown in the text can be found on <./pdata/plots/> and <./pdata/supple_plots/>. 
 Processes to generate those data can be found <./src/Plot/data.py>, <./src/Plot/supple_data.py> and the python codes imported from those.
 
 To reproduce all the results,
-	1. Move to <./src/TimeSeries/__init__.py> and modify the "base_dir" as the absolute path of GeneBib project.
+	1. Move to <./src/TimeSeries/__init__.py> and check if demo is set to True.
 	2. Run <./src/update_TimeSeries.py>
 	3. Run <./src/update_Shares.py>
-	4. Run <./src/update_Fitting.py>
-	5. Run <./src/update_Plot.py>
+	4. Run <./src/update_Pareto.py>
+	5. Run <./src/demo_fitting.py>
 
 I tried to avoid any external libraries and to use only standard libraries as much as possible. All non-standard libraries used are:
 	1. more_itertools (any version >= 8.0.0)
@@ -40,10 +49,12 @@ I tried to avoid any external libraries and to use only standard libraries as mu
 
 	All those libraries can be installed using pip. If any conflicts, follow the installation instructions that each official homepage provides.
 	
-	Our work is not version specific unless Python version is >= 3.8, and any latest version of those libraries produce proper results (checked 2022/March/15th).
+	Our work is not version specific unless Python version is >= 3.8, and any latest version of those libraries produce proper results in Windows10 (checked 2022/Apr/8th).
 	
-	I recommend using the latest possible version of those libraries. If the versions of those libraries are of concern, run <./src/demo.py> to compare the results generated using your system and their expected outputs. The demo will take less than an hour on normal desktop computer and probably less than 10 minutes on any recent computer systems.
+	I recommend using the latest possible version of those libraries. If the versions of those libraries are of concern, follow the reproduction procedure suggest in line 30-34. They compare the outputs generated and pre-existing output files. If those codes print, for example, "Debuts(mtype = paper, n = 0, load = True) exist and valid", then they are fine. This procedure will take less than 10 min on normal desktop computer and probably less than 5 minutes on any recent computer systems.
 	
+Please contact henrik@unist.ac.kr for any questions.
+
 Installation of Python >= 3.8 can be found:
 	https://www.python.org/
 
