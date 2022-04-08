@@ -23,6 +23,6 @@ __all__ = ['demo', 'base_dir', 'rsrc_dir',
 # Python error regarding the locations of the files will be resolved by correcting 'base_dir'
 # I'll leave my 'base_dir' as an example.
 # 'rsrc_dir' will be modified automatically if 'base_dir' and 'demo' are corrected.
-demo = False  # Since we only provides demo-inputs, set demo as True.
+demo = True  # Since we only provides demo-inputs, set demo as True.
 base_dir = Path(__file__).parents[2].as_posix()  # Location where <plots> and <src> directories exist
 rsrc_dir = f'{base_dir}/demo_rsrc' if demo else f'{base_dir}/rsrc'  # Location where <data> and <pdata> directories are

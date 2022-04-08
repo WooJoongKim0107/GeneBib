@@ -1,0 +1,31 @@
+﻿,1990,1995,2000,2005,2010,2015
+1,beta-gal,beta-gal,GFP,GFP,GFP,Cas9
+2,DNase I,GFP,beta-gal,mTOR,mTOR,mTOR
+3,gene5453,DNase I,mTOR,beta-gal,PI3K,GFP
+4,gene3782,gene3924,Luciferase,PI3K,beta-gal,PI3K
+5,gene236,Luciferase,PI3K,gene9213,gene9213,gene9213
+6,gene576,gene74775,gene9213,Luciferase,TP53,TP53
+7,gene138066,CD4,TP53,Caspase-3,Luciferase,Luciferase
+8,gene3924,gene576,gene68718,gene13027,gene13027,Bcl-2
+9,gene520,PI3K,gene23190,gene68718,Bcl-2,Caspase-3
+10,gene16877,gene23190,Caspase-3,ErbB-1,ErbB-1,gene13027
+11,gene1954,gene68900,gene3034,gene86908,gene23005,IL-6
+12,gene602,mTOR,gene10069,TP53,IGF-1 ,beta-gal
+13,gene3737,gene3782,CD4,IGF-1 ,gene28263,β-catenin
+14,gene1165,gene138066,gene14923,gene10546,Caspase-3,ErbB-1
+15,gene25,gene38325,gene74775,EGF,IL-6,gene4067
+16,Luciferase,gene57867,Calmodulin,gene23190,gene17795,gene1450
+17,gene68900,gene3078,gene3984,gene29429,gene10665,gene28263
+18,gene45848,gene45848,DNase I,gene67004,gene7894,gene7894
+19,gene2059,TP53,gene86908,gene23005,β-catenin,TNF-α
+20,gene2617,gene8349,gene10546,Bcl-2,gene29429,gene23005
+21,gene665,gene25,gene5287,β-catenin,Cas9,IL-1β
+22,gene2702,gene236,gene10665,gene5287,gene27791,gene29429
+23,gene13792,gene1109,gene35493,gene3083,gene10546,gene10546
+24,gene203,EGF,IL-2,gene74775,gene68718,gene2374
+25,gene1134,gene5453,EGF,CD4,gene67004,IGF-1 
+26,gene3382,IGF-1 ,gene18157,gene28263,gene23190,gene87418
+27,gene195,gene1625,Bcl-2,gene6013,CD4,BAX 
+28,gene950,IL-2,gene38325,gene10069,TNF-α,gene27791
+29,gene7540,IL-4,IL-6,gene10665,gene10069,gene67004
+30,gene5428,gene1165,gene27018,gene4950,gene9861,gene17795
