@@ -146,7 +146,7 @@ def _combinations(x, n):
 
 
 def update():
-    for mtype in ['paper', 'patent', 'patent_gon']:
+    for mtype in ['paper', 'patent', 'patent_gon', 'any']:
         for n in [0, 1, 2, 3]:
             safe_update(YGH, dict(mtype=mtype, n=n, load=True), dict(mtype=mtype, n=n, load=False))
             safe_update(GYH, dict(mtype=mtype, n=n, load=True), dict(mtype=mtype, n=n, load=False))
