@@ -1,14 +1,14 @@
-The GeneBib project is composed of Part_1 and Part_2.
+This project is composed of Part_1 and Part_2 where:
 
-The Part_1 mainly covers
-	1. generation of "gene", which is a cluster of UniProtKB/Swiss-Prot entries
-	2. string-matching procedures to find genes mentioned in title/abstract of paper/patent
+Part_1 mainly covers
+	1. generation of "gene" which is a cluster of UniProtKB/Swiss-Prot entries
+	2. string-matching algorithms to find genes appeared in title/abstract of paper/patent
 	
-The Part_2 mainly covers 
-	1. generationg of time-series of hits (time-series of how many times each "gene" has been appeared in papers/patents published that year)
-	2. fitting annual number of new genes studied
-	
-The Part_2 includes:
+Part_2 mainly covers
+	1. generation of time-series of hits (time-series of how many times each "gene" has been appeared in papers/patents published that year)
+	2. fitting annual number of newly studied genes
+
+The codes and resource data provided here is Part_2, which includes:
 	1. Generation of time-series of hits 
 		<./src/TimeSeries/time_series.py>
 	2. Finding the debut years 
@@ -19,7 +19,9 @@ The Part_2 includes:
 		<./src/Share/share.py>
 	5. Find the fraction of categories (genetic tools, medical science, etc) among debuted genes.
 		<./src/Share/portion.py>
-	6. Finding the fitting parameters of the model to describe the debut time-series
+	7. Check if vital few genes take the majority of papers/patents, i.e., Pareto principle holds or not.
+	    <./src/Pareto/pareto.py>
+	8. Finding the fitting parameters of the model to describe the debut time-series
 		<./src/fitting.py> and <./src/Fitting/...>
 
 
