@@ -42,7 +42,7 @@ I tried to avoid any external libraries and to use only standard libraries as mu
 		https://numpy.org/
 	3. pandas (any version >= 1.0.0)
 		https://pandas.pydata.org/
-	4. scipy (any version >= 1.7.0)
+	4. scipy (any version >= 1.6.0)
 		https://scipy.org/
 	5. matplotlib (any version >= 3.1)
 		https://matplotlib.org/
