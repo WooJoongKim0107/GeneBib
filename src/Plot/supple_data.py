@@ -62,8 +62,8 @@ def get_sfig7():
     return q.query("status=='DebutFirst'").debuted.values
 
 
-def get_sfig8_trgs():
-    return [v18 for v97, v99, v00, v18 in TRGs().fvalues()]
+def get_sfig8_trgs(apparent=True):
+    return [v18 for v97, v99, v00, v18 in TRGs(load=apparent, apparent=apparent).fvalues()]
 
 
 def get_sfig8_slopes():

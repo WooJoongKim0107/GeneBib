@@ -236,18 +236,21 @@ def plot_sfig8():
     ax1.tick_params(axis='both', labelsize=8)
     ax2.tick_params(axis='both', labelsize=8)
     draw_sfig8_slope(ax0)
-    draw_sfig8_trgs(ax1)
+    draw_sfig8_trgs(ax1, apparent=False)
     draw_sfig8_taus(ax2)
     return fig, (ax0, ax1, ax2)
 
 
-def draw_sfig8_trgs(axis: plt.Axes):
-    PmfPlt.draw_pdf(axis, get_sfig8_trgs(), 0.3, 0.52, 0.01, lc='#d16647', mc='#765749')
+def draw_sfig8_trgs(axis: plt.Axes, apparent=True):
+    PmfPlt.draw_pdf(axis, get_sfig8_trgs(apparent=apparent), 0.3, 0.52, 0.01, lc='#d16647', mc='#765749')
     set_new_ylim(axis, (0, 29))
     axis.set_yticks(np.arange(0, 31, 5))
-    set_new_xlim(axis, (0.33, 0.5))
-    axis.set_xticks(np.arange(0.35, 0.51, 0.05))
-    axis.set_xticks(np.arange(0.33, 0.51, 0.01), minor=True)
+    # set_new_xlim(axis, (0.33, 0.5))
+    # axis.set_xticks(np.arange(0.35, 0.51, 0.05))
+    # axis.set_xticks(np.arange(0.33, 0.51, 0.01), minor=True)
+    set_new_xlim(axis, (0.3, 0.5))
+    axis.set_xticks(np.arange(0.3, 0.51, 0.05))
+    axis.set_xticks(np.arange(0.3, 0.5, 0.01), minor=True)
     axis.set_xlabel('Estimated fraction of\nspecies-specific genes (~2018)', fontsize=10)
     axis.set_ylabel('Probability density', fontsize=10)
 

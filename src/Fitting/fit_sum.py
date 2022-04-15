@@ -54,11 +54,12 @@ class TRGs(KLV):
     R_FILES = FitRes.W_FILES
     W_FILES = W_FILES['TRG']
 
-    def __init__(self, load=True):
+    def __init__(self, load=True, apparent=True):
         if load:
             data = self.load()
         else:
-            data = KLV.from_fitems([taubeta, apparent_TRGs(*taubeta, *sic)] for taubeta, sic in FitRes().sic.fitems())
+            func = apparent_TRGs if apparent else real_TRGs
+            data = KLV.from_fitems([taubeta, func(*taubeta, *sic)] for taubeta, sic in FitRes().sic.fitems())
         super().__init__(data)
 
     def dump(self):
