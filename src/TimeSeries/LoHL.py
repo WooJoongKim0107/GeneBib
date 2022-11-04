@@ -102,7 +102,7 @@ def load_raw(mtype):
         raise ValueError
     else:
         with open(R_FILES[mtype], 'r') as file:
-            return [parse(line) for line in file.readlines()[1:]]
+            return [parse(line, mtype) for line in file.readlines()[1:]]
 
 
 def valid_size(x: list):
@@ -113,9 +113,14 @@ def valid_year(x: list, end_year):
     return 1800 <= x[1] <= end_year
 
 
-def parse(x: str):
+def parse(x: str, mtype: str):
     """Parse each row of <hitgene_list.txt> into python list"""
-    midx, year, *genes = map(np.uint32, x.split(','))
+    if mtype == 'paper':
+        midx, year, *genes = map(np.uint32, x.split(','))
+    elif mtype == 'patent' or mtype == 'patent_gon':
+        midx, year, *genes = x.split(',')[0], *map(np.uint32, x.split(',')[1:])
+    else:
+        raise ValueError
     genes = np.sort(genes)
     return [midx, year, *genes]
 
