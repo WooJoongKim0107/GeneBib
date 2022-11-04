@@ -67,7 +67,7 @@ def plot_sfig1():
     set_new_ylim(axes[0], (0, None))
     set_sci_yticks(axes[0], 4, '.1f', [0.0e4, 1.0e4, 2.0e4, 3.0e4, 4.0e4])
     TimeSeriesPlt.draw_ylabel(axes[0], 'New UniProtKB/Swiss-Prot entries ' + f'($\\times10^{4}$)')
-    TimeSeriesPlt.draw_xlabel(axes[0], 'Times (Year)')
+    TimeSeriesPlt.draw_xlabel(axes[0], 'Year')
 
     TimeSeriesPlt.draw_ts(axes[1], bt, color='black')
     set_new_ylim(axes[1], (0, None))
