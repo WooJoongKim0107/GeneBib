@@ -1,12 +1,4 @@
-This project is composed of Part_1 and Part_2 where:
-
-Part_1 mainly covers
-	1. generation of "gene" which is a cluster of UniProtKB/Swiss-Prot entries
-	2. string-matching algorithms to find genes appeared in title/abstract of paper/patent
-	
-Part_2 mainly covers
-	1. generation of time-series of hits (time-series of how many times each "gene" has been appeared in papers/patents published that year)
-	2. fitting annual number of newly studied genes
+This project (GeneBib) is divided into 2 parts, Part_1 and Part_2.
 
 The codes and resource data provided here is Part_2, which includes:
 	1. Generation of time-series of hits 
@@ -23,7 +15,16 @@ The codes and resource data provided here is Part_2, which includes:
 	    <./src/Pareto/pareto.py>
 	8. Finding the fitting parameters of the model to describe the debut time-series
 		<./src/fitting.py> and <./src/Fitting/...>
+In short, Part_2 mainly covers
+	1. generation of time-series of hits (time-series of how many times each "gene" has been appeared in papers/patents published that year)
+	2. fitting annual number of newly studied genes
 
+To see Part_1, which mainly covers:
+	1. generation of "gene" which is a cluster of UniProtKB/Swiss-Prot entries
+	2. string-matching algorithms to find genes appeared in title/abstract of paper/patent
+See below for details:
+	https://github.com/WooJoongKim0107/GeneBib_part1
+	
 
 All the raw data shown in the text can be found on <./pdata/plots/> and <./pdata/supple_plots/>. 
 Processes to generate those data can be found <./src/Plot/data.py>, <./src/Plot/supple_data.py> and the python codes imported from those.
